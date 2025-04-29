@@ -73,42 +73,43 @@ int main() {
                     resultadosListos = 1;
                 }
                 break;
-
             case 3:
-                // Mostrar finalistas
-                if (!equiposListos || !resultadosListos) {
-                    printf("Debe ingresar los equipos y los resultados primero.\n");
-                } else {
-                    // Ordenar equipos por puntos y diferencia de goles
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = i + 1; j < 4; j++) {
-                            int dif_i = gf[i] - gc[i];
-                            int dif_j = gf[j] - gc[j];
-
-                            if (pts[j] > pts[i] || (pts[j] == pts[i] && dif_j > dif_i)) {
-                                // Intercambiar equipos
-                                char temp[50];
-                                strcpy(temp, equipos[i]);
-                                strcpy(equipos[i], equipos[j]);
-                                strcpy(equipos[j], temp);
-
-                                // Intercambiar puntos, goles a favor y goles en contra
-                                int t;
-                                t = pts[i]; pts[i] = pts[j]; pts[j] = t;
-                                t = gf[i]; gf[i] = gf[j]; gf[j] = t;
-                                t = gc[i]; gc[i] = gc[j]; gc[j] = t;
-                            }
+            // Mostrar finalistas
+            if (!equiposListos || !resultadosListos) {
+                printf("Debe ingresar los equipos y los resultados primero.\n");
+            } else {
+                // Ordenar equipos por puntos y diferencia de goles
+                for (int i = 0; i < 3; i++) {
+                    for (int j = i + 1; j < 4; j++) {
+                        int dif_i = gf[i] - gc[i];
+                        int dif_j = gf[j] - gc[j];
+        
+                        if (pts[j] > pts[i] || (pts[j] == pts[i] && dif_j > dif_i)) {
+                            // Intercambiar equipos
+                            char temp[50];
+                            strcpy(temp, equipos[i]);
+                            strcpy(equipos[i], equipos[j]);
+                            strcpy(equipos[j], temp);
+        
+                            // Intercambiar puntos, goles a favor y goles en contra
+                            int t;
+                            t = pts[i]; pts[i] = pts[j]; pts[j] = t;
+                            t = gf[i]; gf[i] = gf[j]; gf[j] = t;
+                            t = gc[i]; gc[i] = gc[j]; gc[j] = t;
                         }
                     }
-
-                    // Mostrar los dos finalistas
-                    printf("\n--- Finalistas ---\n");
-                    for (int i = 0; i < 2; i++) {
-                        int dif = gf[i] - gc[i];
-                        printf("%d. %s (Puntos: %d, Dif. de goles: %d)\n", i + 1, equipos[i], pts[i], dif);
-                    }
                 }
-                break;
+        
+                // Mostrar los dos finalistas en formato tabla
+                printf("\n--- Finalistas ---\n");
+                printf("| %s              | Puntos | Dif. de Goles |\n", "Equipo");
+                printf("|------------------|--------|----------------|\n");
+                for (int i = 0; i < 2; i++) {
+                    int dif = gf[i] - gc[i];
+                    printf("| %-16s | %-6d | %-14d |\n", equipos[i], pts[i], dif);
+                }
+            }
+            break;
 
             case 4:
                 printf("Fin del programa\n");
